@@ -1,12 +1,11 @@
 fn main() {
-    let sum: u32 = (0..).map_while(|i| {
-        let n = fib(i);
-        if n >= 4_000_000 {
-            None
-        } else {
-            Some(n)
-        }
-    }).filter(|n| n % 2 == 0).sum();
+    let sum: u32 = (0..)
+        .map_while(|i| {
+            let n = fib(i);
+            (n < 4_000_000).then_some(n)
+        })
+        .filter(|n| n % 2 == 0)
+        .sum();
     println!("{sum}");
 }
 
